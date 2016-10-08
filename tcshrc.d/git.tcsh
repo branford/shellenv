@@ -76,8 +76,12 @@ endif
 #if ($GIT_CHECK == 'True' && (`domainname` == 'PYCT' || "$checktun" != '')) then
 if ($GIT_CHECK == 'True') then
     echo 'update git tree'
-    cd $CYHOME/svn_files/FreeBSD
-    $GIT pull
+
+    if ( -e $CYHOME/svn_files/FreeBSD ) then
+        cd $CYHOME/svn_files/FreeBSD
+        $GIT pull
+    endif
+
     cd $CYHOME/svn_files/shellenv
     $GIT pull
     cd
