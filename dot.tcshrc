@@ -1,0 +1,55 @@
+#
+# 20110329 捨棄 Big-5 所有設定, 只 support UTF-8
+#          並只支援 FreeBSD 7, 8 等設定, FreeBSD 5 以下可能會有問題
+# Author: Chi-Yuan Tseng <cytseng@gmail.com>
+#
+
+#
+# 基本的變數設定
+#
+set OS=`uname`
+
+if (( -e /net/md1000 ) && $USER == "tony") then
+    set CYHOME='/net/srv/ftp/gb/cytseng'
+else
+    set CYHOME=$HOME
+endif
+
+set SVN_TREE=$CYHOME/svn_files/shellenv
+
+# 共同設定
+source $SVN_TREE/tcshrc.d/common.tcsh
+set screen=`whereis screen | awk '{print $2}' | grep bin`
+
+# GB 專用
+if ( -e /net/md1000 ) then
+    source $SVN_TREE/tcshrc.d/gb.tcsh
+endif
+
+# FreeBSD 專用
+if ( $OS == "FreeBSD" ) then
+    source $SVN_TREE/tcshrc.d/freebsd.tcsh
+endif
+
+# Linux 專用
+if ( $OS == "Linux" ) then
+    source $SVN_TREE/tcshrc.d/linux.tcsh
+endif
+
+# Mac 專用
+if ( $OS == 'Darwin' ) then
+    source $SVN_TREE/tcshrc.d/mac.tcsh
+    set screen='/usr/local/bin/screen'
+endif
+
+# 其他特殊設定
+alias	screen "$screen -c $HOME/.screenrc.utf-8"
+
+# 利用 git 自動更新
+source $SVN_TREE/tcshrc.d/git.tcsh
+
+unset OS
+unset CYHOME
+unset svn_check
+unset screen
+unset SVN_TREE
