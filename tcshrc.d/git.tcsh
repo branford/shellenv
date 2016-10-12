@@ -42,34 +42,38 @@ endif
 #  endif
 # endif
 
-if ( "$OS" == 'Darwin' ) then
-    if ( "$MBA" != '' ) then
-        set checksocks=`netstat -na | grep 1111`
-
-        if (( -e $HOME/svn_files/FreeBSD/6.x/bin/gitgw.sh ) && ( "$checksocks" != '' )) then
-            setenv GIT_PROXY_COMMAND $HOME/svn_files/FreeBSD/6.x/bin/gitgw.sh
-        endif
-
-        if (( -e $HOME/svn_files/FreeBSD/6.x/bin/gitgw.sh ) && ( "$checksocks" != '' ) && ( "$MY_TERM" == 's001' ) && ( "$GIT" != '' )) then
-            set GIT_CHECK='True'
+if ( "$USER" == 'cytseng' ) then
+    if ( "$OS" == 'Darwin' ) then
+        if ( "$MBA" != '' ) then
+            set checksocks=`netstat -na | grep 1111`
+    
+            if (( -e $HOME/svn_files/FreeBSD/6.x/bin/gitgw.sh ) && ( "$checksocks" != '' )) then
+                setenv GIT_PROXY_COMMAND $HOME/svn_files/FreeBSD/6.x/bin/gitgw.sh
+            endif
+    
+            if (( -e $HOME/svn_files/FreeBSD/6.x/bin/gitgw.sh ) && ( "$checksocks" != '' ) && ( "$MY_TERM" == 's001' ) && ( "$GIT" != '' )) then
+                set GIT_CHECK='True'
+            else
+                set GIT_CHECK=''
+            endif
+    
+            unset $checksocks
         else
-            set GIT_CHECK=''
+            if (( "$MY_TERM" == 's001' ) && ( "$GIT" != '' )) then
+                set GIT_CHECK='True'
+            else
+                set GIT_CHECK=''
+            endif
         endif
-
-        unset $checksocks
     else
-        if (( "$MY_TERM" == 's001' ) && ( "$GIT" != '' )) then
-            set GIT_CHECK='True'
+        if ((( $MY_TERM == 'ttyv0' ) || ($MY_TERM == 'pts' )) && (${?TMUX} == '0') && ( "$GIT" != '' )) then
+                set GIT_CHECK='True'
         else
-            set GIT_CHECK=''
+                set GIT_CHECK=''
         endif
     endif
 else
-    if ((( $MY_TERM == 'ttyv0' ) || ($MY_TERM == 'pts' )) && (${?TMUX} == '0') && ( "$GIT" != '' )) then
-            set GIT_CHECK='True'
-    else
-            set GIT_CHECK=''
-    endif
+    set GIT_CHECK=''
 endif
 
 # 在璞園內可使用 git 同步, 只先處理 FreeBSD 的部份
