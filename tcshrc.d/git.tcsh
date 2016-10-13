@@ -57,7 +57,7 @@ if ( "$USER" == 'cytseng' ) then
                 set GIT_CHECK=''
             endif
     
-            unset $checksocks
+            unset checksocks
         else
             if (( "$MY_TERM" == 's001' ) && ( "$GIT" != '' )) then
                 set GIT_CHECK='True'
