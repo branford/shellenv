@@ -22,7 +22,7 @@ endif
 # 判斷使用者, 是否使用 tmux, 判斷 git, 判斷 git tree, 判斷 screen, 判斷非 console(?)
 # if Mac
 #  if MBA 筆電能移動, 所以要用 socks 同步
-#   if check gitgw.sh, socks port 1111 , s001, git
+#   if check gitgw.sh, socks port 1111 , s000, git
 #    GIT_CHECK='True'
 #   else
 #    GIT_CHECK=''
@@ -51,7 +51,7 @@ if ( "$USER" == 'cytseng' ) then
                 setenv GIT_PROXY_COMMAND $HOME/svn_files/FreeBSD/6.x/bin/gitgw.sh
             endif
     
-            if (( -e $HOME/svn_files/FreeBSD/6.x/bin/gitgw.sh ) && ( "$checksocks" != '' ) && ( "$MY_TERM" == 's001' ) && ( "$GIT" != '' )) then
+            if (( -e $HOME/svn_files/FreeBSD/6.x/bin/gitgw.sh ) && ( "$checksocks" != '' ) && ( "$MY_TERM" == 's000' ) && ( "$GIT" != '' )) then
                 set GIT_CHECK='True'
             else
                 set GIT_CHECK=''
@@ -59,7 +59,7 @@ if ( "$USER" == 'cytseng' ) then
     
             unset checksocks
         else
-            if (( "$MY_TERM" == 's001' ) && ( "$GIT" != '' )) then
+            if (( "$MY_TERM" == 's000' ) && ( "$GIT" != '' )) then
                 set GIT_CHECK='True'
             else
                 set GIT_CHECK=''
